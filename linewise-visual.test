@@ -1,0 +1,92 @@
+#!/usr/bin/env -S shelltest --execdir
+
+# 1. escape: cursor should not have moved
+<
+foo bar
+$ ./bin/keymaptest vim 'send V' 'expect LINE' 'send $ESC' 'expect NOR' 'send r1'
+1oo bar
+>= 0
+
+# 2. delete immediate (x)
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vx'
+>= 0
+
+# 3. delete (d)
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vd'
+>= 0
+
+# 4. replace (r)
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vr1'
+1111111
+>= 0
+
+# 5. change (c): should not delete newline character
+<
+foo bar
+foo bar
+$ ./bin/keymaptest vim 'send Vc1'
+1
+foo bar
+>= 0
+
+# 6. yank (y)
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vyp'
+foo bar
+foo bar
+>= 0
+
+# 7. move line down (j)
+<
+foo bar
+foo bar
+$ ./bin/keymaptest vim 'send Vjd'
+>= 0
+
+# 8. move words forward (ww)
+<
+foo bar
+foo bar
+$ ./bin/keymaptest vim 'send Vwwd'
+>= 0
+
+# 9. move line up (k)
+<
+foo bar
+foo bar
+$ ./bin/keymaptest vim 'send jw' 'send Vkd'
+>= 0
+
+# 10. move words backward (bb)
+<
+foo bar
+foo bar
+$ ./bin/keymaptest vim 'send jw' 'send Vbbd'
+>= 0
+
+# 11. move word (w): should move cursor within the line
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vw' 'expect LINE' 'send $ESC' 'expect NOR' 'send r1'
+foo 1ar
+>= 0
+
+# 12. find char (f): test on_next_key_callback behavior
+<
+foo bar
+$ ./bin/keymaptest vim 'send Vfbd'
+>= 0
+
+# 13. switching back and forth to characterwise visual (v)
+<
+foo bar
+$ ./bin/keymaptest vim 'send vwVvd'
+ar
+>= 0
