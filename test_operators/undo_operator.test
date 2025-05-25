@@ -1,0 +1,15 @@
+#!/usr/bin/env -S shelltest --execdir
+
+# 1. undo dd
+<
+foo
+$ ./bin/keymaptest vim 'send dd' 'send u' 'expect NOR' 'send x'
+oo
+>= 0
+
+# 1. undo di)
+<
+(foo)
+$ ./bin/keymaptest vim 'send di)' 'send u' 'expect NOR' 'send x'
+(oo)
+>= 0

@@ -1,0 +1,93 @@
+#!/usr/bin/env -S shelltest --execdir
+
+# 1. yy
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send yyp'
+foo
+foo
+bar
+>= 0
+
+# 2. "+yy
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send \"+yy' 'send jyy' 'send \"+p'
+foo
+bar
+foo
+>= 0
+
+# 3. 2yy
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send 2yy' 'send p'
+foo
+foo
+bar
+bar
+>= 0
+
+# 4. yiw
+<
+foo test
+k
+$ ./bin/keymaptest vim 'send yiw' 'send j' 'send p' 
+foo test
+kfoo
+>= 0
+
+# 5. yi)
+# k is to avoid Helix case when cursor at the end of the line
+# it will paste in next line. Cursor positioning probably need isolated tests
+<
+(foo)
+k
+$ ./bin/keymaptest vim 'send yi)' 'send j' 'send p' 
+(foo)
+kfoo
+>= 0
+
+# 6. yi$ESC
+<
+(foo)
+$ ./bin/keymaptest vim 'send yi' 'send $ESC' 'expect NOR' 
+(foo)
+>= 0
+
+# 7. test unkown char 
+<
+(foo)
+$ ./bin/keymaptest vim 'send yi' 'send z' 'expect NOR'
+(foo)
+>= 0
+
+# 8. test special case: moving from operator to visual
+<
+(foo)
+k
+$ ./bin/keymaptest vim 'send yi' 'send $ESC' 'expect NOR' 'send jv' 'expect VIS'
+(foo)
+k
+>= 0
+
+# 9. yt
+<
+food test
+k
+$ ./bin/keymaptest vim 'send ytd' 'expect NOR' 'send jp'
+food test
+kfoo
+>= 0
+
+# 10. yf
+<
+food test
+k
+$ ./bin/keymaptest vim 'send yfd' 'expect NOR' 'send jp'
+food test
+kfood
+>= 0

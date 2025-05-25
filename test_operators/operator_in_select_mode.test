@@ -1,0 +1,51 @@
+# 1. vd
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send vlld' 
+
+bar
+>= 0
+
+# 2. v"+d
+<
+foo
+bar
+k
+$ ./bin/keymaptest vim 'send vll\"+djj' 'send \"+p'
+
+bar
+kfoo
+>= 0
+
+# 3. vc
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send vllcU' 
+U
+bar
+>= 0
+
+# 4. vy
+<
+foo
+bar
+k
+$ ./bin/keymaptest vim 'send vllyjjp'
+foo
+bar
+kfoo
+>= 0
+
+# 5. v"+y
+<
+foo
+bar
+k
+$ ./bin/keymaptest vim 'send vll\"+yjj' 'send \"+p'
+foo
+bar
+kfoo
+>= 0
+

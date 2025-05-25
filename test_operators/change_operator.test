@@ -1,0 +1,91 @@
+#!/usr/bin/env -S shelltest --execdir
+
+# 1. cc
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send cck' 
+k
+bar
+>= 0
+
+# 2. "+cc
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send \"+cck' 'send $ESC$ESC' 'send \"+p'
+k
+foo
+bar
+>= 0
+
+# 3. 2cc
+<
+foo
+bar
+baz
+$ ./bin/keymaptest vim 'send 2cck' 'send $ESC$ESC' 'send p'
+k
+foo
+bar
+baz
+>= 0
+
+# 4. caw
+<
+foo bar
+ab
+$ ./bin/keymaptest vim 'send cawk' 'send $ESC$ESC' 'send 0jp'
+kbar
+afoo b
+>= 0
+
+# 5. ca)
+<
+(foo)
+a
+$ ./bin/keymaptest vim 'send ca)k' 'send $ESC$ESC' 'send 0jp'
+k
+a(foo)
+>= 0
+
+# 6. ci$ESC
+<
+(foo)
+$ ./bin/keymaptest vim 'send ci' 'send $ESC' 'expect NOR' 
+(foo)
+>= 0
+
+# 7. test unkown char 
+<
+(foo)
+$ ./bin/keymaptest vim 'send ci' 'send z' 'expect NOR'
+(foo)
+>= 0
+
+# 8. test special case: moving from operator to visual
+<
+(foo)
+k
+$ ./bin/keymaptest vim 'send ci' 'send $ESC' 'expect NOR' 'send jv' 'expect VIS'
+(foo)
+k
+>= 0
+
+# 9. dt
+<
+fooxbar
+k
+$ ./bin/keymaptest vim 'send ctxU' 'send $ESC$ESC' 'send 0jp'
+Uxbar
+kfoo
+>= 0
+
+# 10. df
+<
+fooxbar
+k
+$ ./bin/keymaptest vim 'send cfxU' 'send $ESC$ESC' 'send 0jp'
+Ubar
+kfoox
+>= 0
