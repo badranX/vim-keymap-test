@@ -1,0 +1,57 @@
+#!/usr/bin/env -S shelltest --execdir
+
+# Note: No wrapped line tests in this file
+
+# 1. dj
+<
+foo
+bar
+baz
+$ ./bin/keymaptest vim 'send ldj' 
+baz
+>= 0
+
+# 2. 2dj
+<
+foo
+bar
+baz
+beez
+$ ./bin/keymaptest vim 'send l2dj' 
+beez
+>= 0
+
+# 3. dk
+<
+foo
+bar
+baz
+$ ./bin/keymaptest vim 'send ljdk' 
+baz
+>= 0
+
+# 4. cj
+<
+foo
+bar
+baz
+beez
+$ ./bin/keymaptest vim 'send cjk' 
+k
+baz
+beez
+>= 0
+
+# 5. dw
+<
+foo bar
+$ ./bin/keymaptest vim 'send dw' 
+bar
+>= 0
+
+# 6. dW
+<
+foo; bar
+$ ./bin/keymaptest vim 'send dW' 
+bar
+>= 0
