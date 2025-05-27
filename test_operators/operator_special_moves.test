@@ -55,3 +55,21 @@ foo; bar
 $ ./bin/keymaptest vim 'send dW' 
 bar
 >= 0
+
+# 7. dG
+<
+foo
+bar
+baz
+beez
+$ ./bin/keymaptest vim 'send dG'
+>= 0
+
+# 8. Gdgg
+<
+foo
+bar
+baz
+beez
+$ ./bin/keymaptest vim 'send Gdgg'
+>= 0
