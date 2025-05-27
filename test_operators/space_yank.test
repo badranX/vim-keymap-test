@@ -2,7 +2,7 @@
 <
 foo
 bar
-$ ./bin/keymaptest vim 'send " "' 'send yy' 'send jyy' 'send \"+p'
+$ ./bin/keymaptest vim 'send " "' 'send yy' 'send j' 'send \"+p'
 foo
 bar
 foo

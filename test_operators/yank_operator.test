@@ -14,7 +14,7 @@ bar
 <
 foo
 bar
-$ ./bin/keymaptest vim 'send \"+yy' 'send jyy' 'send \"+p'
+$ ./bin/keymaptest vim 'send \"+yyj' 'send \"+p'
 foo
 bar
 foo
