@@ -91,3 +91,14 @@ $ ./bin/keymaptest vim 'send yfd' 'expect NOR' 'send jp'
 food test
 kfood
 >= 0
+
+# 11. visual lines yank
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send lVjy' 'expect NOR' 'send p'
+foo
+foo
+bar
+bar
+>= 0

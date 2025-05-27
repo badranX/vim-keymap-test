@@ -89,3 +89,13 @@ $ ./bin/keymaptest vim 'send cfxU' 'send $ESC$ESC' 'send 0jp'
 Ubar
 kfoox
 >= 0
+
+# 11. visual line change operator
+<
+foo
+bar
+baz
+$ ./bin/keymaptest vim 'send lVjck'
+k
+baz
+>= 0

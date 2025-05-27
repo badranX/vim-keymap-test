@@ -87,3 +87,13 @@ $ ./bin/keymaptest vim 'send dfx' 'expect NOR' 'send jp'
 bar
 kfoox
 >= 0
+
+
+# 11. visual lines delete
+<
+foo
+bar
+baz
+$ ./bin/keymaptest vim 'send lVjd' 'expect NOR'
+baz
+>= 0
