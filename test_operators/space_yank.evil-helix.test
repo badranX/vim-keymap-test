@@ -1,0 +1,29 @@
+# 1. <SPACE>yy
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send " yy"' 'send j\"+p'
+foo
+bar
+foo
+>= 0
+
+# 2. <SPACE>2yy
+<
+foo
+bar
+$ ./bin/keymaptest vim 'send " 2yy"' 'send \"+p'
+foo
+foo
+bar
+bar
+>= 0
+
+# 3. <SPACE>yi)
+<
+(foo)
+k
+$ ./bin/keymaptest vim 'send " yi)"' 'send j\"+p'
+(foo)
+kfoo
+>= 0
