@@ -54,31 +54,31 @@ kfoo
 # 6. yi$ESC
 <
 (foo)
-$ ./bin/keymaptest vim 'send yi' 'send $ESC' 'expect NOR' 
-(foo)
+$ ./bin/keymaptest vim 'send yi' 'esc_delay' 'send lrx'
+(xoo)
 >= 0
 
 # 7. test unkown char 
 <
 (foo)
-$ ./bin/keymaptest vim 'send yi' 'send z' 'expect NOR'
-(foo)
+$ ./bin/keymaptest vim 'send yiz'  'send lvlrx'
+(xxo)
 >= 0
 
 # 8. test special case: moving from operator to visual
 <
 (foo)
-k
-$ ./bin/keymaptest vim 'send yi' 'send $ESC' 'expect NOR' 'send jv' 'expect VIS'
+bar
+$ ./bin/keymaptest vim 'send yi' 'esc_delay' 'send jvlrx'
 (foo)
-k
+xxr
 >= 0
 
 # 9. yt
 <
 food test
 k
-$ ./bin/keymaptest vim 'send ytd' 'expect NOR' 'send jp'
+$ ./bin/keymaptest vim 'send ytd' 'send jp'
 food test
 kfoo
 >= 0
@@ -87,7 +87,7 @@ kfoo
 <
 food test
 k
-$ ./bin/keymaptest vim 'send yfd' 'expect NOR' 'send jp'
+$ ./bin/keymaptest vim 'send yfd'  'send jp'
 food test
 kfood
 >= 0
@@ -96,7 +96,7 @@ kfood
 <
 foo
 bar
-$ ./bin/keymaptest vim 'send lVjy' 'expect NOR' 'send p'
+$ ./bin/keymaptest vim 'send lVjy' 'send p'
 foo
 foo
 bar

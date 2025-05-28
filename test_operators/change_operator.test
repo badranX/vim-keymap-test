@@ -13,7 +13,7 @@ bar
 <
 foo
 bar
-$ ./bin/keymaptest vim 'send \"+cck' 'send $ESC$ESC' 'send \"+p'
+$ ./bin/keymaptest vim 'send \"+cck' 'esc_delay' 'send \"+p'
 k
 foo
 bar
@@ -24,7 +24,7 @@ bar
 foo
 bar
 baz
-$ ./bin/keymaptest vim 'send 2cck' 'send $ESC$ESC' 'send p'
+$ ./bin/keymaptest vim 'send 2cck' 'esc_delay' 'send p'
 k
 foo
 bar
@@ -35,7 +35,7 @@ baz
 <
 foo bar
 ab
-$ ./bin/keymaptest vim 'send cawk' 'send $ESC$ESC' 'send 0jp'
+$ ./bin/keymaptest vim 'send cawk' 'esc_delay' 'send 0jp'
 kbar
 afoo b
 >= 0
@@ -44,48 +44,50 @@ afoo b
 <
 (foo)
 a
-$ ./bin/keymaptest vim 'send ca)k' 'send $ESC$ESC' 'send 0jp'
+$ ./bin/keymaptest vim 'send ca)k' 'esc_delay' 'send 0jp'
 k
 a(foo)
 >= 0
 
-# 6. ci$ESC
+# 6. ci$ESC: test if $ESC cancel operator.
+# Note: if operator is not canceled, `l` would change text
+# Note: `v` is an extra check that Visual won't change the text
 <
 (foo)
-$ ./bin/keymaptest vim 'send ci' 'send $ESC' 'expect NOR' 
-(foo)
+$ ./bin/keymaptest vim 'send ci' 'esc_delay' 'send lvlrx'
+(xxo)
 >= 0
 
 # 7. test unkown char 
 <
 (foo)
-$ ./bin/keymaptest vim 'send ci' 'send z' 'expect NOR'
-(foo)
+$ ./bin/keymaptest vim 'send ci' 'send z' 'send lvlrx'
+(xxo)
 >= 0
 
 # 8. test special case: moving from operator to visual
 <
 (foo)
-k
-$ ./bin/keymaptest vim 'send ci' 'send $ESC' 'expect NOR' 'send jv' 'expect VIS'
+bar
+$ ./bin/keymaptest vim 'send ci' 'esc_delay' 'send jvlrx'
 (foo)
-k
+xxr
 >= 0
 
-# 9. dt
+# 9. ct
 <
 fooxbar
 k
-$ ./bin/keymaptest vim 'send ctxU' 'send $ESC$ESC' 'send 0jp'
+$ ./bin/keymaptest vim 'send ctxU' 'esc_delay' 'send 0jp'
 Uxbar
 kfoo
 >= 0
 
-# 10. df
+# 10. cf
 <
 fooxbar
 k
-$ ./bin/keymaptest vim 'send cfxU' 'send $ESC$ESC' 'send 0jp'
+$ ./bin/keymaptest vim 'send cfxU' 'esc_delay' 'send 0jp'
 Ubar
 kfoox
 >= 0

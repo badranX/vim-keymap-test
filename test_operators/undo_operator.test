@@ -3,13 +3,13 @@
 # 1. undo dd
 <
 foo
-$ ./bin/keymaptest vim 'send dd' 'send u' 'expect NOR' 'send x'
-oo
+$ ./bin/keymaptest vim 'send dd' 'send u' 'send llrx'
+fox
 >= 0
 
-# 1. undo di)
+# 2. undo di)
 <
 (foo)
-$ ./bin/keymaptest vim 'send di)' 'send u' 'expect NOR' 'send x'
-(oo)
+$ ./bin/keymaptest vim 'send di)' 'send u' 'send llrx'
+(fox)
 >= 0
