@@ -30,6 +30,13 @@ ESC="\033"
 
 expect >/dev/null <<EOF
 set ESC \033
+
+proc esc_delay {} {
+    global ESC
+    send $ESC
+    after 100
+}
+
 spawn $cmd "$tempfile"
 expect NOR
 $(for arg in "$@"; do
